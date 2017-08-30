@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/jamlith/james-and-aarons-resturaunt/issues"
   },
-  "homepage": "https://github.com/jamlith/james-and-aarons-resturaunt#readme"
+  "homepage": "https://github.com/jamlith/james-and-aarons-resturaunt#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+  "scripts": {
+  	"start": "node server.js"
 }
