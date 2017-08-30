@@ -15,7 +15,7 @@
 	<div class="container">
 
 		<div class="jumbotron">
-			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span>James and Aaron Resturant Express</h1>
+			<h1 class="text-center"><span class="glyphicon glyphicon-fire text-danger"></span>James and Aaron Resturant Express</h1>
 			<hr>
 			<h2 class="text-center">Current Reservations and Waiting List</h2>
 			<br>
@@ -76,12 +76,12 @@
 		var currentURL = window.location.origin;
 
 		// The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-		$.ajax({url: currentURL + "/api/tables", method: "GET"})
-			.done(function(tableData) {
-
+		$.ajax({url: currentURL + "/list", method: "GET"})
+			.done(function(tableDataString) {
+				var tableData = JSON.parse(tableDataString);
 				// Here we are logging the URL so we have access to it for troubleshooting
 				console.log("------------------------------------");
-				console.log("URL: " + currentURL + "/api/tables");
+				console.log("URL: " + currentURL + "/list");
 				console.log("------------------------------------");
 
 				// Here we then log the NYTData to console, where it will show up as an object.
@@ -93,7 +93,7 @@
 
 					// Create the HTML Well (Section) and Add the table content for each reserved table
 					var tableSection = $("<div>");
-					tableSection.addClass('well');
+					tableSection.addClass('well well-sm');
 					tableSection.attr('id', 'tableWell-' + i+1)
 					$('#tableSection').append(tableSection);
 
@@ -101,7 +101,7 @@
 
 
 					// Then display the remaining fields in the HTML (Section Name, Date, URL)
-					$("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].customerID + "</h2>");
+					$("#tableWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].name + " (" + tableData[i].email + ")</h2>");
 				}
 			});
 	}
@@ -113,31 +113,31 @@
 		var currentURL = window.location.origin;
 
 		// The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-		$.ajax({url: currentURL + "/api/waitlist", method: "GET"})
+		$.ajax({url: currentURL + "/waitlist", method: "GET"})
 			.done(function(waitlistData) {
 
 				// Here we are logging the URL so we have access to it for troubleshooting
 				console.log("------------------------------------");
-				console.log("URL: " + currentURL + "/api/waitlist");
+				console.log("URL: " + currentURL + "/list");
 				console.log("------------------------------------");
 
 				// Here we then log the NYTData to console, where it will show up as an object.
 				console.log(waitlistData);
 				console.log("------------------------------------")
-
+				
 				// Loop through and display each of the customers
 				for (var i=0; i<waitlistData.length; i++){
 
 					// Create the HTML Well (Section) and Add the table content for each reserved table
 					var waitlistSection = $("<div>");
-					waitlistSection.addClass('well');
+					waitlistSection.addClass('well well-sm');
 					waitlistSection.attr('id', 'waitlistWell-' + i+1)
 					$('#waitlistSection').append(waitlistSection);
 
 					var tableNumber = i + 1;
 
 					// Then display the remaining fields in the HTML (Section Name, Date, URL)
-					$("#waitlistWell-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlistData[i].customerID + "</h2>");
+					$("#waitlistWell-"+ i+1).append('<h3><span class="label label-primary">' + tableNumber + "</span> | " + waitlistData[i].name + "</h2>");
 				}
 			});
 	}
@@ -151,7 +151,6 @@
 	}
 
 	$("#clear").on('click', function(){
-		alert("Clearing...");
 		clearTable();
 
 		// Refresh the page after data is cleared

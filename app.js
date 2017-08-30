@@ -19,8 +19,15 @@ app.use(bp.text());
 app.use(bp.json({ type: "application/vnd.api+json "}));
 
 
-var tables = [];
+var tables = [
+    {
+    name: "Yahoosafat",
+    email: "toruser303094@anon.onion",
+    phone: "fuck."
+    }
+];
 
+var jsonParser = bp.json();
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/main.html');
@@ -31,9 +38,20 @@ app.get('/tables', (req, res) => {
 app.get('/reserve', (req, res) => {
     res.sendFile(__dirname + '/reserve.html');
 });
-
-
-
+app.get('/list', (req, res) => {
+    res.send(JSON.stringify(tables));    
+});
+app.post('/add', jsonParser, (req, res) => {
+    tables.push({
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email
+    });
+    res.sendFile(__dirname + '/tables.html');
+});
+app.post('/clear', jsonParser, (req,res) => {
+    tables = [];
+});
 
 app.listen(PORT, function() {
     console.log('App listening on port: '+ PORT);

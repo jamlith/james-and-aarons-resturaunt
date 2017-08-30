@@ -15,14 +15,14 @@
 	<div class="container">
 
 		<div class="jumbotron">
-			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span>James and Aaron Resturant Express</h1>
+			<h1 class="text-center"><span class="glyphicon glyphicon-fire text-danger"></span>James and Aaron Resturant Express</h1>
 			<hr>
 			<h2 class="text-center">RSVP</h2>
 			<br>
 
 			<div class="text-center">
-				<a href="/tables"><button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Tables</button></a>
-				<a href="/"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
+				<a href="/tables" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Tables</a>
+				<a href="/" type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></a>
 			</div>
 		</div>
 
@@ -36,29 +36,25 @@
 					</div>
 					<div class="panel-body">
 
-						<form role="form">
+						<form role="form" method="POST" action="/add">
 
 							<div class="form-group">
 								<label for="">Name</label>
-								<input type="text" class="form-control" id="reserve_name">
+								<input type="text" class="form-control" name="name">
 							</div>
 
 							<div class="form-group">
 								<label for="">Phone Number</label>
-								<input type="text" class="form-control" id="reserve_phone">
+								<input type="text" class="form-control" name="phone">
 							</div>
 
 							<div class="form-group">
 								<label for="">Email</label>
-								<input type="text" class="form-control" id="reserve_email">
+								<input type="text" class="form-control" name="email">
 							</div>
 
-							<div class="form-group">
-								<label for="">Unique ID</label>
-								<input type="text" class="form-control" id="reserve_uniqueID">
-							</div>
 
-							<button type="submit" class="btn btn-primary submit">Submit</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
 					</div>
@@ -70,7 +66,7 @@
 
 	    <footer class="footer">
 	      <div class="container">
-	        <p><a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> </p>
+	        <p>Disclaimer: if you are experiencing numbness in your mouth after eating any of our dishes please get a loved one to escort you to the nearest emergency room.  Please do not call us regarding this matter, as we are already busy enough. Thanks, and we wish you luck regarding your recovery. :)</p>
 	      </div>
 	    </footer>
 
