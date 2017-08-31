@@ -25,7 +25,13 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#byline').text("Load successful!")
+      $.getJSON(window.location.origin + '/remaining', (data) => {
+        console.log('rtn ./remain =>');
+        console.log(`${data}`);
+        if (data.count == 1) let postpend = "";
+        else let postpend = "s";
+        $('#byline').text(`${data.count} table${postpend} are available.  Make a reservation now!`);
+      });
     });
   </script>
 </body>

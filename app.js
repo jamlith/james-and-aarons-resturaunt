@@ -20,11 +20,7 @@ app.use(bp.json({ type: "application/vnd.api+json "}));
 
 
 var tables = [
-    {
-    name: "Yahoosafat",
-    email: "toruser303094@anon.onion",
-    phone: "fuck."
-    }
+
 ];
 
 var jsonParser = bp.json();
@@ -41,12 +37,16 @@ app.get('/reserve', (req, res) => {
 app.get('/list', (req, res) => {
     res.send(JSON.stringify(tables));    
 });
+app.get('/remaining', (req, res) => {
+
+});
 app.post('/add', jsonParser, (req, res) => {
     tables.push({
         name: req.body.name,
         phone: req.body.phone,
         email: req.body.email
     });
+});
     res.sendFile(__dirname + '/tables.html');
 });
 app.post('/clear', jsonParser, (req,res) => {

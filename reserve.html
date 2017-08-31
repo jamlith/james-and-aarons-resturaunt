@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Reservation Page</title>
 
 	<!-- Latest compiled and minified CSS & JS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/style.css">
 
 </head>
+
 <body>
 
 	<div class="container">
 
 		<div class="jumbotron">
 			<h1 class="text-center"><span class="glyphicon glyphicon-fire text-danger"></span>James and Aaron Resturant Express</h1>
+			<h3 id="byline">Tables are available, reserve one now!</h3>
 			<hr>
-			<h2 class="text-center">RSVP</h2>
-			<br>
 
 			<div class="text-center">
 				<a href="/tables" type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Tables</a>
@@ -32,28 +33,27 @@
 				<!-- Reservation Page -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">Table Reservation</h4>
+						<h4 class="panel-title">Table Reservation Form:</h4>
 					</div>
 					<div class="panel-body">
 
 						<form role="form" method="POST" action="/add">
 
-							<div class="form-group">
-								<label for="">Name</label>
-								<input type="text" class="form-control" name="name">
+							<div class="input-group input-group-lg">
+								<span class='input-group-addon' id='name-icon'><span class="glyphicon glyphicon-user text-primary"></span></span>
+								<input type="text" class="form-control" name="name" placeholder="Customer Name" aria-describedby="name-icon">
 							</div>
-
-							<div class="form-group">
-								<label for="">Phone Number</label>
-								<input type="text" class="form-control" name="phone">
+							</BR>
+							<div class="input-group input-group-lg">
+								<span class='input-group-addon' id='name-icon'><span class="glyphicon glyphicon-phone text-primary"></span></span>
+								<input type="text" class="form-control" name="phone" placeholder="Phone Number (XXX-XXX-XXXX)" aria-describedby="name-icon" pattern="[0-9]{3}[-][0-9]{3}[-][0-9]{4}">
 							</div>
-
-							<div class="form-group">
-								<label for="">Email</label>
-								<input type="text" class="form-control" name="email">
+							</BR>
+							<div class="input-group input-group-lg">
+								<span class='input-group-addon' id='name-icon'><span class="glyphicon glyphicon-envelope text-primary"></span></span>
+								<input type="email" class="form-control" name="email" placeholder="Email Address" aria-describedby="name-icon">
 							</div>
-
-
+							</BR>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -64,65 +64,24 @@
 		</div>
 
 
-	    <footer class="footer">
-	      <div class="container">
-	        <p>Disclaimer: if you are experiencing numbness in your mouth after eating any of our dishes please get a loved one to escort you to the nearest emergency room.  Please do not call us regarding this matter, as we are already busy enough. Thanks, and we wish you luck regarding your recovery. :)</p>
-	      </div>
-	    </footer>
+		<footer class="footer">
+			<div class="container">
+				<p class='text-muted'>Disclaimer: if you are experiencing numbness in your mouth after eating any of our dishes please get a loved one to escort
+					you to the nearest emergency room. Please do not call us regarding this matter, as we are already busy enough. Thanks,
+					and we wish you luck regarding your recovery. :)</p>
+			</div>
+		</footer>
 
 	</div>
-
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	 crossorigin="anonymous"></script>
 </body>
+
 </html>
 
-<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
+	$('#customer-number').on('change', (event) => {
+	});
 
-	// In this code below we create the Front-end Javascript which "POSTS" our form data to our express server.
-	// In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-	// Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-	// In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-
-	$(".submit").on("click", function(){
-
-		// Here we grab the form elements
-		var newReservation = {
-			customerName: $('#reserve_name').val().trim(),
-			phoneNumber: $('#reserve_phone').val().trim(),
-			customerEmail: $('#reserve_email').val().trim(),
-			customerID: $('#reserve_uniqueID').val().trim()
-		};
-
-		console.log(newReservation);
-
-		// This line is the magic. It's very similar to the standard ajax function we used.
-		// Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-		// The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-		// depending on if a tables is available or not.
-
-		// Here we get the location of the root page.
-		// We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
-		var currentURL = window.location.origin;
-
-	    $.post(currentURL + "/api/tables", newReservation,
-	    function(data){
-
-	    	// If a table is available... tell user they are booked.
-	    	if(data == true){
-	    		alert("Yay! You are officially booked!")
-	    	}
-
-	    	// If a table is available... tell user they on the waiting list.
-	    	if(data == false){
-	    		alert("Sorry you are on the wait list")
-	    	}
-
-	    	// Clear the form when submitting
-    		$('#reserve_name').val("");
-			$('#reserve_phone').val("");
-			$('#reserve_email').val("");
-			$('#reserve_uniqueID').val("");
-
-	    });
-
-return false;
+</script>
