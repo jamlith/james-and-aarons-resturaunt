@@ -28,8 +28,9 @@
       $.getJSON(window.location.origin + '/remaining', (data) => {
         console.log('rtn ./remain =>');
         console.log(`${data}`);
-        if (data.count == 1) let postpend = "";
-        else let postpend = "s";
+        let postpend;
+        if (data.count == 1) postpend = "";
+        else postpend = "s";
         $('#byline').text(`${data.count} table${postpend} are available.  Make a reservation now!`);
       });
     });

@@ -10,6 +10,8 @@ var express = require('express');
 var bp = require('body-parser');
 var path = require('path');
 
+var total_tables = 10;  // # of tables available before populating waitlist
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 
@@ -38,7 +40,11 @@ app.get('/list', (req, res) => {
     res.send(JSON.stringify(tables));    
 });
 app.get('/remaining', (req, res) => {
-
+    var returnObject = {
+        count: total_tables - tables.length,
+    }
+    var strung = JSON.stringify(returnObject);
+    res.send(strung);
 });
 app.post('/add', jsonParser, (req, res) => {
     tables.push({
@@ -46,8 +52,6 @@ app.post('/add', jsonParser, (req, res) => {
         phone: req.body.phone,
         email: req.body.email
     });
-});
-    res.sendFile(__dirname + '/tables.html');
 });
 app.post('/clear', jsonParser, (req,res) => {
     tables = [];
